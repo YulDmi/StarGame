@@ -13,7 +13,7 @@ import ru.geekbrains.math.MatrixUtils;
 import ru.geekbrains.math.Rect;
 
 public class BaseScreen implements Screen, InputProcessor {
-
+    private static final float MARGIN = 0.05f;
     protected SpriteBatch batch;
 
     private Rect screenBounds;
