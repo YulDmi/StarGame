@@ -18,7 +18,7 @@ public class BaseScreen implements Screen, InputProcessor {
     protected SpriteBatch batch;
     protected Music music;
     private Rect screenBounds;
-    private Rect worldBounds;
+    protected Rect worldBounds;
     private Rect glBounds;
 
     private Matrix4 worldToGl;
@@ -37,6 +37,8 @@ public class BaseScreen implements Screen, InputProcessor {
         screenToWorld = new Matrix3();
         touch = new Vector2();
         music = Gdx.audio.newMusic(Gdx.files.internal("sounds/music.mp3"));
+        music.setLooping(true);
+        music.play();
     }
 
     @Override
@@ -58,7 +60,7 @@ public class BaseScreen implements Screen, InputProcessor {
         MatrixUtils.calcTransitionMatrix(screenToWorld, screenBounds, worldBounds);
         batch.setProjectionMatrix(worldToGl);
         resize(worldBounds);
-        music.play();
+
     }
 
     public void resize(Rect worldBounds) {
