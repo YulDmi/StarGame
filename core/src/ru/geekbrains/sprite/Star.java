@@ -8,15 +8,20 @@ import ru.geekbrains.math.Rect;
 import ru.geekbrains.math.Rnd;
 
 public class Star extends Sprite {
-    private Rect worldBounds;
+
     private Vector2 v;
+    private Rect worldBounds;
+
     private float animateTimer;
     private float animateInterval;
 
     public Star(TextureAtlas atlas) {
         super(atlas.findRegion("star"));
         v = new Vector2();
-        v.set(Rnd.nextFloat(-0.0001f, 0.0001f), Rnd.nextFloat(-0.002f, -0.002f));
+        float vx = Rnd.nextFloat(-0.005f, 0.005f);
+        float vy = Rnd.nextFloat(-0.2f, -0.05f);
+        v.set(vx, vy);
+        worldBounds = new Rect();
     }
 
     @Override
@@ -31,17 +36,14 @@ public class Star extends Sprite {
 
     @Override
     public void update(float delta) {
-
-       setScale(getScale()- 0.005f);
-
+        setScale(getScale() - 0.008f);
         animateTimer += delta;
         if (animateTimer >= animateInterval) {
             setScale(1f);
             animateTimer = 0f;
         }
-        pos.add(v);
+        pos.mulAdd(v, delta);
         checkBounds();
-
     }
 
     private void checkBounds() {
