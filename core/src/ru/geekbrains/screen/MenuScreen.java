@@ -15,15 +15,16 @@ import ru.geekbrains.sprite.PlayButton;
 import ru.geekbrains.sprite.Star;
 
 public class MenuScreen extends BaseScreen {
-    private StarGame starGame;
+
     private Texture bg;
     private TextureAtlas atlas;
     private Background background;
     private ExitButton exitButton;
     private PlayButton playButton;
     private Star [] stars = new Star[256];
-    public MenuScreen(StarGame starGame) {
-        this.starGame = starGame;
+
+    public MenuScreen(StarGame game) {
+        starGame = game;
     }
 
     @Override
@@ -92,9 +93,8 @@ public class MenuScreen extends BaseScreen {
     @Override
     public boolean touchUp(Vector2 touch, int pointer, int button) {
         exitButton.touchUp(touch, pointer, button);
-        if (playButton.touchUp(touch, pointer, button)) {
-            starGame.setScreen(new GameScreen());
-        }
+        playButton.touchUp(touch, pointer, button);
+
         return false;
     }
 }

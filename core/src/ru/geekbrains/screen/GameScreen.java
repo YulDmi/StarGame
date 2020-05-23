@@ -19,6 +19,7 @@ import ru.geekbrains.sprite.Bullet;
 import ru.geekbrains.sprite.Enemy;
 import ru.geekbrains.sprite.GameOver;
 import ru.geekbrains.sprite.MainShip;
+import ru.geekbrains.sprite.NewGameButton;
 import ru.geekbrains.sprite.Star;
 import ru.geekbrains.utils.EnemyEmitter;
 
@@ -37,6 +38,7 @@ public class GameScreen extends BaseScreen {
     private EnemyEmitter emitter;
     private ExplosionPool explosionPool;
     private GameOver gameOver;
+    private NewGameButton newgame;
     private State state;
 
     @Override
@@ -55,6 +57,7 @@ public class GameScreen extends BaseScreen {
         emitter = new EnemyEmitter(atlas, enemyPool);
         mainShip = new MainShip(atlas, bulletPool, explosionPool);
         gameOver = new GameOver(atlas);
+        newgame = new NewGameButton(atlas,starGame);
         state = State.PLAYING;
 
     }
@@ -77,6 +80,7 @@ public class GameScreen extends BaseScreen {
         mainShip.resize(worldBounds);
         emitter.resize(worldBounds);
         gameOver.resize(worldBounds);
+        newgame.resize(worldBounds);
     }
 
     @Override
@@ -111,6 +115,7 @@ public class GameScreen extends BaseScreen {
         if (state == State.PLAYING) {
             mainShip.touchDown(touch, pointer, button);
         }
+        newgame.touchDown(touch, pointer, button);
         return false;
     }
 
@@ -119,6 +124,7 @@ public class GameScreen extends BaseScreen {
         if (state == State.PLAYING) {
             mainShip.touchUp(touch, pointer, button);
         }
+        newgame.touchUp(touch, pointer, button);
         return false;
     }
 
@@ -190,6 +196,7 @@ public class GameScreen extends BaseScreen {
             enemyPool.drawActiveSprites(batch);
         }else if(state == State.GAME_OVER){
             gameOver.draw(batch);
+            newgame.draw(batch);
         }
         explosionPool.drawActiveSprites(batch);
         batch.end();

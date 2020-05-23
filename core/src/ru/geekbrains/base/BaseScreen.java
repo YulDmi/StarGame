@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Matrix3;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 
+import ru.geekbrains.StarGame;
 import ru.geekbrains.math.MatrixUtils;
 import ru.geekbrains.math.Rect;
 
@@ -20,7 +21,7 @@ public class BaseScreen implements Screen, InputProcessor {
     private Rect screenBounds;
     protected Rect worldBounds;
     private Rect glBounds;
-
+    protected static StarGame starGame;
     private Matrix4 worldToGl;
     private Matrix3 screenToWorld;
 
@@ -39,6 +40,7 @@ public class BaseScreen implements Screen, InputProcessor {
         music = Gdx.audio.newMusic(Gdx.files.internal("sounds/music.mp3"));
         music.setLooping(true);
         music.play();
+
     }
 
     @Override

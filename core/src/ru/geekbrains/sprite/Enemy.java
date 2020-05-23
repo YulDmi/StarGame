@@ -20,8 +20,8 @@ public class Enemy extends Ship {
     @Override
     public void update(float delta) {
         super.update(delta);
+        bulletPos.set(pos.x, pos.y - getHalfHeight());
         if (getTop() <= worldBounds.getTop()) {
-            bulletPos.set(pos.x, pos.y - getHalfHeight());
             autoShoot(delta);
             this.v.set(v0);
         }
