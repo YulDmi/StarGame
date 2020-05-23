@@ -16,7 +16,7 @@ public class MainShip extends Ship {
     private static final float SIZE = 0.15f;
     private static final float MARGIN = 0.05f;
     private static final int INVALID_POINTER = -1;
-    private static final int HP = 100;
+    private static final int HP = 10;
 
     private int leftPointer;
     private int rightPointer;
@@ -51,6 +51,8 @@ public class MainShip extends Ship {
     @Override
     public void update(float delta) {
         super.update(delta);
+        bulletPos.set(pos.x, pos.y+getHalfHeight());
+        autoShoot(delta);
         if (getLeft() < worldBounds.getLeft()) {
             stop();
             setLeft(worldBounds.getLeft());
@@ -145,6 +147,15 @@ public class MainShip extends Ship {
     public void dispose() {
         sound.dispose();
     }
+
+    public boolean isBulletCollision (Bullet bullet) {
+        return !(bullet.getRight() < getLeft()
+                || bullet.getLeft() > getRight()
+                || bullet.getBottom() > pos.y
+                || bullet.getTop() < getBottom()
+        );
+    }
+
 
     private void moveRight() {
         v.set(v0);
