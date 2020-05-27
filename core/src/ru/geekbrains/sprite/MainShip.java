@@ -51,7 +51,7 @@ public class MainShip extends Ship {
     @Override
     public void update(float delta) {
         super.update(delta);
-        bulletPos.set(pos.x, pos.y+getHalfHeight());
+        bulletPos.set(pos.x, pos.y + getHalfHeight());
         autoShoot(delta);
         if (getLeft() < worldBounds.getLeft()) {
             stop();
@@ -148,7 +148,7 @@ public class MainShip extends Ship {
         sound.dispose();
     }
 
-    public boolean isBulletCollision (Bullet bullet) {
+    public boolean isBulletCollision(Bullet bullet) {
         return !(bullet.getRight() < getLeft()
                 || bullet.getLeft() > getRight()
                 || bullet.getBottom() > pos.y
