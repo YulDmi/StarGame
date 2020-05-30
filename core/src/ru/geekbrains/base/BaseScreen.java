@@ -16,16 +16,17 @@ import ru.geekbrains.math.Rect;
 
 public class BaseScreen implements Screen, InputProcessor {
     private static final float MARGIN = 0.05f;
+
     protected SpriteBatch batch;
     protected Music music;
+    protected Font font;
     private Rect screenBounds;
     protected Rect worldBounds;
     private Rect glBounds;
-    protected static StarGame starGame;
     private Matrix4 worldToGl;
     private Matrix3 screenToWorld;
-
     private Vector2 touch;
+
 
     @Override
     public void show() {
@@ -40,7 +41,7 @@ public class BaseScreen implements Screen, InputProcessor {
         music = Gdx.audio.newMusic(Gdx.files.internal("sounds/music.mp3"));
         music.setLooping(true);
         music.play();
-
+        font = new Font("font/myfont.fnt", "font/myfont.png");
     }
 
     @Override
@@ -66,7 +67,7 @@ public class BaseScreen implements Screen, InputProcessor {
     }
 
     public void resize(Rect worldBounds) {
-            }
+    }
 
     @Override
     public void pause() {
@@ -84,6 +85,7 @@ public class BaseScreen implements Screen, InputProcessor {
     @Override
     public void dispose() {
         music.dispose();
+        font.dispose();
         batch.dispose();
     }
 

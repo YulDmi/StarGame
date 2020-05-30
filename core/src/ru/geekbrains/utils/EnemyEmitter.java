@@ -17,7 +17,7 @@ public class EnemyEmitter {
     private static final int ENEMY_SMALL_HP = 1;
     private static final float ENEMY_SMALL_BULLET_HEIGHT = 0.01f;
     private static final float ENEMY_SMALL_BULLET_VY = -0.3f;
-    private static final int ENEMY_SMALL_BULLET_DAMAGE = 1;
+    private static final int ENEMY_SMALL_BULLET_DAMAGE = 2;
     private static final float ENEMY_SMALL_RELOAD_INTERVAL = 4f;
 
     private static final float ENEMY_MEDIUM_HEIGHT = 0.15f;
@@ -48,6 +48,7 @@ public class EnemyEmitter {
     private final TextureRegion bulletRegion;
 
     private final EnemyPool enemyPool;
+    private int level = 1;
 
     public EnemyEmitter(TextureAtlas atlas, EnemyPool enemyPool) {
         TextureRegion enemy0 = atlas.findRegion("enemy0");
@@ -67,9 +68,10 @@ public class EnemyEmitter {
         this.worldBounds = worldBounds;
     }
 
-    public void generate(float delta) {
+    public void generate(float delta, int frags) {
+        level = frags /10 + 1;
         generateTimer += delta;
-        if (generateTimer >= GENERATE_INTERVAL) {
+        if (generateTimer >= GENERATE_INTERVAL - level/10f) {
             generateTimer = 0f;
             Enemy enemy = enemyPool.obtain();
             float type = (float) Math.random();
@@ -80,7 +82,7 @@ public class EnemyEmitter {
                         bulletRegion,
                         ENEMY_SMALL_BULLET_HEIGHT,
                         ENEMY_SMALL_BULLET_VY,
-                        ENEMY_SMALL_BULLET_DAMAGE,
+                        ENEMY_SMALL_BULLET_DAMAGE * level,
                         ENEMY_SMALL_RELOAD_INTERVAL,
                         ENEMY_SMALL_HP,
                         ENEMY_SMALL_HEIGHT
@@ -91,8 +93,8 @@ public class EnemyEmitter {
                         enemyMediumV,
                         bulletRegion,
                         ENEMY_MEDIUM_BULLET_HEIGHT,
-                        ENEMY_MEDIUM_BULLET_VY,
-                        ENEMY_MEDIUM_BULLET_DAMAGE,
+                        ENEMY_MEDIUM_BULLET_VY ,
+                        ENEMY_MEDIUM_BULLET_DAMAGE * level,
                         ENEMY_MEDIUM_RELOAD_INTERVAL,
                         ENEMY_MEDIUM_HP,
                         ENEMY_MEDIUM_HEIGHT
@@ -103,8 +105,8 @@ public class EnemyEmitter {
                         enemyBigV,
                         bulletRegion,
                         ENEMY_BIG_BULLET_HEIGHT,
-                        ENEMY_BIG_BULLET_VY,
-                        ENEMY_BIG_BULLET_DAMAGE,
+                        ENEMY_BIG_BULLET_VY ,
+                        ENEMY_BIG_BULLET_DAMAGE * level,
                         ENEMY_BIG_RELOAD_INTERVAL,
                         ENEMY_BIG_HP,
                         ENEMY_BIG_HEIGHT
@@ -113,5 +115,9 @@ public class EnemyEmitter {
             enemy.pos.x = Rnd.nextFloat(worldBounds.getLeft() + enemy.getHalfWidth(), worldBounds.getRight() - enemy.getHalfWidth());
             enemy.setBottom(worldBounds.getTop());
         }
+    }
+
+    public int getLevel() {
+        return level;
     }
 }
