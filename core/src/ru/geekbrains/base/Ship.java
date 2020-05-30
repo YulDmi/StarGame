@@ -32,7 +32,16 @@ public class Ship extends Sprite {
     protected Sound sound;
 
     protected int hp;
-private float damageAnimateInterval;
+
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    private float damageAnimateInterval;
     public Ship(TextureRegion region, int rows, int cols, int frames) {
         super(region, rows, cols, frames);
         v0 = new Vector2();
